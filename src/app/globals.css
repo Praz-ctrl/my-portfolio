@@ -1,0 +1,290 @@
+@import "tailwindcss";
+
+/* ===== DESIGN TOKENS ===== */
+:root {
+  --background: #0a0a0a;
+  --surface: #141414;
+  --surface-elevated: #1a1a1a;
+  --foreground: #fafafa;
+  --foreground-secondary: #737373;
+  --foreground-tertiary: #525252;
+  --accent: #c9a96e;
+  --accent-hover: #d4b87a;
+  --accent-alt: #8b5cf6;
+  --border: rgba(255, 255, 255, 0.06);
+  --border-hover: rgba(255, 255, 255, 0.12);
+  --glass: rgba(255, 255, 255, 0.03);
+  --glass-hover: rgba(255, 255, 255, 0.06);
+  --glow-accent: rgba(201, 169, 110, 0.15);
+  --glow-violet: rgba(139, 92, 246, 0.15);
+  --radius: 12px;
+  --radius-lg: 24px;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-elevated: var(--surface-elevated);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-alt: var(--accent-alt);
+  --color-foreground-secondary: var(--foreground-secondary);
+  --color-foreground-tertiary: var(--foreground-tertiary);
+  --color-border: var(--border);
+  --color-border-hover: var(--border-hover);
+  --color-glass: var(--glass);
+  --color-glass-hover: var(--glass-hover);
+}
+
+/* ===== BASE STYLES ===== */
+* {
+  cursor: none !important;
+}
+
+@media (pointer: coarse) {
+  * {
+    cursor: auto !important;
+  }
+}
+
+html {
+  background: var(--background);
+  color: var(--foreground);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: auto;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--background);
+}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--foreground-tertiary);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--foreground-secondary);
+}
+
+/* ===== NOISE / GRAIN OVERLAY ===== */
+.noise-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+
+/* ===== TECH GRID BACKGROUND ===== */
+.grid-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.015;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.15) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* ===== GLASSMORPHISM ===== */
+.glass {
+  background: var(--glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
+}
+
+.glass-hover:hover {
+  background: var(--glass-hover);
+  border-color: var(--border-hover);
+}
+
+/* ===== GLOW EFFECTS ===== */
+.glow-accent {
+  box-shadow: 0 0 40px var(--glow-accent), 0 0 80px rgba(201, 169, 110, 0.05);
+}
+
+.glow-violet {
+  box-shadow: 0 0 40px var(--glow-violet), 0 0 80px rgba(139, 92, 246, 0.05);
+}
+
+.text-glow-accent {
+  text-shadow: 0 0 40px rgba(201, 169, 110, 0.4);
+}
+
+.text-glow-violet {
+  text-shadow: 0 0 40px rgba(139, 92, 246, 0.4);
+}
+
+/* ===== GRADIENT UTILITIES ===== */
+.gradient-radial {
+  background: radial-gradient(
+    ellipse at center,
+    var(--surface) 0%,
+    var(--background) 70%
+  );
+}
+
+.gradient-hero {
+  background: radial-gradient(
+    ellipse 80% 60% at 50% 40%,
+    rgba(201, 169, 110, 0.06) 0%,
+    rgba(139, 92, 246, 0.03) 40%,
+    transparent 70%
+  );
+}
+
+.gradient-section {
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(201, 169, 110, 0.015) 50%,
+    transparent 100%
+  );
+}
+
+/* ===== TYPOGRAPHY ===== */
+.text-display {
+  font-size: clamp(3rem, 12vw, 14rem);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  font-weight: 800;
+}
+
+.text-display-sm {
+  font-size: clamp(2rem, 6vw, 6rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-weight: 700;
+}
+
+.text-editorial {
+  font-size: clamp(1.5rem, 3.5vw, 4rem);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  font-weight: 400;
+}
+
+.text-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--foreground-secondary);
+}
+
+/* ===== MARQUEE ===== */
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* ===== SCROLL INDICATOR ===== */
+@keyframes scrollBounce {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(10px);
+    opacity: 0.5;
+  }
+}
+
+.animate-scroll-bounce {
+  animation: scrollBounce 2s ease-in-out infinite;
+}
+
+/* ===== LOADING SCREEN ===== */
+@keyframes pulse-glow {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* ===== LINE CLIP REVEAL ===== */
+.clip-reveal {
+  clip-path: inset(0 100% 0 0);
+}
+
+.clip-reveal-visible {
+  clip-path: inset(0 0% 0 0);
+}
+
+/* ===== RESPONSIVE UTILITIES ===== */
+@media (max-width: 768px) {
+  .text-display {
+    font-size: clamp(2.5rem, 15vw, 5rem);
+  }
+  .text-display-sm {
+    font-size: clamp(1.5rem, 8vw, 3rem);
+  }
+}
