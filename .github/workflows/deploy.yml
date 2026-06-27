@@ -3,7 +3,7 @@ name: Deploy Next.js to GitHub Pages
 on:
   push:
     branches:
-      - source # Builds and deploys when you push to the source branch
+      - main # Builds and deploys when you push to the main branch
 
 permissions:
   contents: write
@@ -31,5 +31,5 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: out
-          branch: main # Static files are deployed to the main branch for serving
+          branch: gh-pages # Static files are deployed to the gh-pages branch for serving
           clean: true
